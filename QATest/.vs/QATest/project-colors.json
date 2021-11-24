@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "77200fda-b749-4dc0-8172-50a2f900f39e": {
+      "ProjectGuid": "77200fda-b749-4dc0-8172-50a2f900f39e",
+      "DisplayName": "QATest",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
