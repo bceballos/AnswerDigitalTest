@@ -1,27 +1,51 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using NUnit.Framework;
 
 namespace QATest
 {
-    internal class Test2
+    [TestFixture]
+    internal class Task2 : CommonCommands
     {
+        private ChromeDriver driver = new ChromeDriver();
+        private CommonCommands common = new CommonCommands();
 
-        public void Initialize() // Open the browser, go to the link, click on the appropriate link
+        [SetUp]
+        public void Start()
         {
-
+            common.initialize(driver, "http://the-internet.herokuapp.com/infinite_scroll");
         }
 
-        public void ExecuteTest() // Perform the browser operations
+        [TearDown]
+        public void End()
         {
-
+            common.cleanUp(driver);
         }
 
-        public void EndTest() // Close the browser and cleanup the test
+        [Test]
+        public void ScrollDownScrollUpAssertInfiniteScrollText() // Perform the browser operations
         {
+            common.scrollToBottom(driver);
 
+            Thread.Sleep(4000); // Added sleeps to prove / show Selenium scrolling as it lags behind a little bit
+
+            common.scrollToBottom(driver);
+
+            Thread.Sleep(4000);
+
+            common.scrollToTop(driver);
+
+            Thread.Sleep(4000);
+
+            IWebElement title = driver.FindElement(By.XPath(".//*[@class='example']/*[contains(text(),'Infinite Scroll')]"));
+
+            Assert.IsTrue(title.Displayed);
         }
     }
 }
